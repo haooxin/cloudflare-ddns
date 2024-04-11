@@ -17,7 +17,7 @@ If you use the Global API Key, you need to include two headers in the request: `
 `curl -X GET "https://api.cloudflare.com/client/v4/zones/YOUR_ZONE_ID/dns_records" -H "X-Auth-Email: YOUR_EMAIL" -H "X-Auth-Key: YOUR_GLOBAL_API_KEY" -H "Content-Type: application/json"`
 
 ### Using an API Token:
-If you decide to use an API token, you will need only one header: Authorization, to which you will attach the API token preceded by the word Bearer.
+If you decide to use an API token, you will need only one header: Authorization, to which you will attach the API token preceded by the word `Bearer`.
 `curl -X GET "https://api.cloudflare.com/client/v4/zones/YOUR_ZONE_ID/dns_records" -H "Authorization: Bearer YOUR_API_TOKEN" -H "Content-Type: application/json"`
 
 In both cases, replace `YOUR_ZONE_ID`, `YOUR_EMAIL`, `YOUR_GLOBAL_API_KEY`, or `YOUR_API_TOKEN` with the appropriate values for your account and domain.
