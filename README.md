@@ -1,5 +1,11 @@
 # Cloudflare DDNS
-Cloudflare DDNS bash script with notifications.
+
+## About
+This script is used to update Dynamic DNS (DDNS) service based on Cloudflare! Access your home network remotely via a custom domain name without a static IP!
+- DDNS Cloudflare Bash Script for most **Linux** distributions.
+- Cloudflare's options proxy and TTL configurable.
+- Discord, Telegram and Email Notifications
+
 
 ## Requirements:
 - A Cloudflare account and a domain for which you want to set up DDNS.
@@ -57,7 +63,19 @@ To have the script run automatically, you can add it to crontab:
 1. Open crontab: `crontab -e`
 2. Add a line to crontab to have the script run hourly (you can adjust the frequency):
     `0 * * * * /path/to/cloudflare_ddns.sh`
-	
+ 
+```bash
+# ┌───────────── minute (0 - 59)
+# │ ┌───────────── hour (0 - 23)
+# │ │ ┌───────────── day of the month (1 - 31)
+# │ │ │ ┌───────────── month (1 - 12)
+# │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday 7 is also Sunday on some systems)
+# │ │ │ │ │ ┌───────────── command to issue                               
+# │ │ │ │ │ │
+# │ │ │ │ │ │
+# * * * * * /bin/bash {Location of the script}
+```
+
 # Notifications
 ## 1. Discord Webhook
 Create a Webhook on Discord:
@@ -80,4 +98,4 @@ Create a Webhook on Discord:
 To send emails, you can use the `email` program available on most Unix/Linux systems. However, you must have a mail client configured on your server (e.g. `sendmail` or `postfix`).
 1. Send an email:
 	- Use the following command, replacing `RECIPIENT_EMAIL` with the recipient's email address, `SUBJECT` with the subject of the message, and `YOUR_MESSAGE` with the content of the message.
-	    `echo "YOUR_MESSAGE" | mail -s "SUBJECT" RECIPIENT_EMAIL`	
+	    `echo "YOUR_MESSAGE" | mail -s "SUBJECT" RECIPIENT_EMAIL`
