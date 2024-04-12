@@ -3,7 +3,7 @@
 ## About
 This script is used to update Dynamic DNS (DDNS) service based on Cloudflare! Access your home network remotely via a custom domain name without a static IP!
 - DDNS Cloudflare Bash Script for most **Linux** distributions.
-- Cloudflare's options proxy and TTL configurable.
+- Cloudflare's options configurable.
 - Discord, Telegram and Email Notifications
 
 
