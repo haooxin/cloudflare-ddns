@@ -54,7 +54,38 @@ To update a DNS record, you need the Zone ID of your domain and the Record ID of
     - Review the response to find the ID of the record you want to update.
 
 ## Step 3: DDNS Update Script 
-Run the `cloudflare_ddns.sh` script with the following content, replacing `YOUR_ZONE_ID`, `YOUR_RECORD_ID`, `YOUR_EMAIL`, and `YOUR_API_KEY` with your data. 
+Before running, configure the `cloudflare_ddns.sh` script according to your personal requirements.
+### Configuration
+#### Cloudflare API
+```sh
+# Cloudflare API configuration
+ZONE_ID="YOUR_ZONE_ID"
+RECORD_ID="YOUR_RECORD_ID"
+API_KEY="YOUR_API_TOKEN"
+EMAIL="YOUR_EMAIL"
+DOMAIN="example.com"
+IP=$(curl -s http://ipv4.icanhazip.com)
+
+# DNS record configuration set by the user
+TTL=1                # TTL value, set by user, default to 1 (auto)
+PROXIED=true         # Set true to proxy through Cloudflare, false to disable
+```
+#### Notifications
+```sh
+# Webhooks and Email configuration
+DISCORD_WEBHOOK_URL="YOUR_DISCORD_WEBHOOK_URL"
+TELEGRAM_BOT_TOKEN="YOUR_TELEGRAM_BOT_TOKEN"
+TELEGRAM_CHAT_ID="YOUR_TELEGRAM_CHAT_ID"
+EMAIL_RECIPIENT="YOUR_EMAIL_RECIPIENT"
+EMAIL_SUBJECT="DDNS Update Notification"
+
+# User notification preferences
+NOTIFICATION_ENABLE_DISCORD=false    	# Set to false to disable Discord notifications
+NOTIFICATION_ENABLE_TELEGRAM=false  	# Set to false to disable Telegram notifications
+NOTIFICATION_ENABLE_EMAIL=false     	# Set to false to disable Email notifications
+NOTIFICATION_SECURE_PUBLIC_IP=true  	# value true limits display of public ip in notifications,
+					# value false displays old and new public ip address
+```
 ## Step 4: Grant Execution Permissions and Run the Script 
 1. Grant execution permissions to the script: `chmod +x cloudflare_ddns.sh`
 2. Run the script to update the DNS record: `./cloudflare_ddns.sh`
