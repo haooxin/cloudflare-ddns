@@ -94,6 +94,10 @@ To have the script run automatically, you can add it to crontab:
 1. Open crontab: `crontab -e`
 2. Add a line to crontab to have the script run hourly (you can adjust the frequency):
     `0 * * * * /path/to/cloudflare_ddns.sh`
+Example with adding messages with date to *.log file using cron, the script executes every 15min:
+```sh
+*/15 * * * * /path/to/cloudflare_ddns.sh | while IFS= read -r line; do echo "$(date) - $line"; done >> /path/to/cloudflare_ddns.log
+```
  
 ```bash
 # ┌───────────── minute (0 - 59)
