@@ -59,16 +59,16 @@ Before running, configure the `cloudflare_ddns.sh` script according to your pers
 #### Cloudflare API
 ```sh
 # Cloudflare API configuration
-ZONE_ID="YOUR_ZONE_ID"
-RECORD_ID="YOUR_RECORD_ID"
-API_KEY="YOUR_API_TOKEN"
-EMAIL="YOUR_EMAIL"
-DOMAIN="example.com"
-IP=$(curl -s http://ipv4.icanhazip.com)
+CF_ZONE_ID="YOUR_ZONE_ID"
+CF_RECORD_ID="YOUR_RECORD_ID"
+CF_API_KEY="YOUR_API_TOKEN"
+CF_EMAIL="YOUR_EMAIL"
+CF_DOMAIN="example.com"
+PUBLIC_IP=$(curl -s http://ipv4.icanhazip.com)
 
 # DNS record configuration set by the user
-TTL=1                # TTL value, set by user, default to 1 (auto)
-PROXIED=true         # Set true to proxy through Cloudflare, false to disable
+CF_DNS_TTL=1                 # TTL value, set by user, default to 1 (auto)
+CF_DNS_PROXIED=true        # Set true to proxy through Cloudflare, false to disable
 ```
 #### Notifications
 ```sh
@@ -76,15 +76,21 @@ PROXIED=true         # Set true to proxy through Cloudflare, false to disable
 DISCORD_WEBHOOK_URL="YOUR_DISCORD_WEBHOOK_URL"
 TELEGRAM_BOT_TOKEN="YOUR_TELEGRAM_BOT_TOKEN"
 TELEGRAM_CHAT_ID="YOUR_TELEGRAM_CHAT_ID"
+SLACK_WEBHOOK_URL="YOUR_SLACK_WEBHOOK_URL"
 EMAIL_RECIPIENT="YOUR_EMAIL_RECIPIENT"
 EMAIL_SUBJECT="DDNS Update Notification"
 
 # User notification preferences
 NOTIFICATION_ENABLE_DISCORD=false    	# Set to false to disable Discord notifications
 NOTIFICATION_ENABLE_TELEGRAM=false  	# Set to false to disable Telegram notifications
+NOTIFICATION_ENABLE_SLACK=false     	# Set to false to disable Slack notifications
 NOTIFICATION_ENABLE_EMAIL=false     	# Set to false to disable Email notifications
 NOTIFICATION_SECURE_PUBLIC_IP=true  	# value true limits display of public ip in notifications,
 					# value false displays old and new public ip address
+
+# Log file configuration
+LOG_FILE="/path/to/cloudflare_ddns_bifrost.log"  # Full path to logfile.
+MAX_LOG_ENTRIES=288				 # Max Log Entries in LOG_FILE, 288=24h/5min
 ```
 ## Step 4: Grant Execution Permissions and Run the Script 
 1. Grant execution permissions to the script: `chmod +x cloudflare_ddns.sh`
@@ -93,10 +99,8 @@ NOTIFICATION_SECURE_PUBLIC_IP=true  	# value true limits display of public ip in
 To have the script run automatically, you can add it to crontab:
 1. Open crontab: `crontab -e`
 2. Add a line to crontab to have the script run hourly (you can adjust the frequency):
-    `0 * * * * /path/to/cloudflare_ddns.sh`
-- Example with adding messages with date to *.log file using cron, the script executes every 15min:
 ```sh
-*/15 * * * * /path/to/cloudflare_ddns.sh | while IFS= read -r line; do echo "$(date) - $line"; done >> /path/to/cloudflare_ddns.log
+*/5 * * * * /path/to/cloudflare_ddns.sh
 ```
  
 ```bash
