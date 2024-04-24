@@ -100,6 +100,7 @@ To have the script run automatically, you can add it to crontab:
 1. Open crontab: `crontab -e`
 2. Add a line to crontab to have the script run hourly (you can adjust the frequency):
 ```sh
+@reboot /path/to/cloudflare_ddns.sh
 */5 * * * * /path/to/cloudflare_ddns.sh
 ```
  
