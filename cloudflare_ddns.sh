@@ -32,7 +32,7 @@ NOTIFICATION_SECURE_PUBLIC_IP=true  # value true limits display of public ip in 
 LOG_FILE="/path/to/cloudflare_ddns_bifrost.log"  # Full path to logfile.
 MAX_LOG_ENTRIES=288
 
-og_message() {
+log_message() {
     echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" >> $LOG_FILE
     echo "$1"
     # Keep only the last 10 lines in the log file
