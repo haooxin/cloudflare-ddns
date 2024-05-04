@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION="v1.4.7"      # Script version
+VERSION="v2024.4.7"      # Script version
 
 # Cloudflare API configuration
 CF_ZONE_ID="YOUR_ZONE_ID"
