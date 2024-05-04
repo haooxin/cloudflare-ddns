@@ -1,11 +1,11 @@
 #!/bin/bash
-VERSION="v2024.4.7"      # Script version
+# Script version
+VERSION="v2024.5.1"
 
 # Cloudflare API configuration
 CF_ZONE_ID="YOUR_ZONE_ID"
 CF_RECORD_ID="YOUR_RECORD_ID"
 CF_API_KEY="YOUR_API_TOKEN"
-CF_EMAIL="YOUR_EMAIL"
 CF_DOMAIN="example.com"
 PUBLIC_IP=$(curl -s http://ipv4.icanhazip.com)
 
@@ -26,18 +26,16 @@ NOTIFICATION_ENABLE_DISCORD=false    # Set to false to disable Discord notificat
 NOTIFICATION_ENABLE_TELEGRAM=false  # Set to false to disable Telegram notifications
 NOTIFICATION_ENABLE_SLACK=false     # Set to false to disable Slack notifications
 NOTIFICATION_ENABLE_EMAIL=false     # Set to false to disable Email notifications
-NOTIFICATION_SECURE_PUBLIC_IP=true  # value true limits display of public ip in notifications, value false displays old and new public ip address
+NOTIFICATION_SECURE_PUBLIC_IP=true  # Value true limits display of public ip in notifications, value false displays old and new public ip address
 
 # Log file configuration
 LOG_FILE="/path/to/cloudflare_ddns_bifrost.log"  # Full path to logfile.
 MAX_LOG_ENTRIES=288
 
 log_message() {
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" >> $LOG_FILE
-    echo "$1"
-    # Keep only the last 10 lines in the log file
-    tail -n $MAX_LOG_ENTRIES $LOG_FILE > temp_log_file
-    mv temp_log_file $LOG_FILE
+    local msg="$1"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $msg" | tee -a $LOG_FILE
+    tail -n $MAX_LOG_ENTRIES $LOG_FILE > temp_log_file && mv temp_log_file $LOG_FILE # Keep only the last 10 lines in the log file
 }
 
 # Check for empty IP
@@ -78,7 +76,6 @@ if [[ "$CURRENT_CF_DNS_PROXIED" != "$CF_DNS_PROXIED" ]]; then
     CHANGE_LOG+=" PROXIED status changed from $CURRENT_CF_DNS_PROXIED to $CF_DNS_PROXIED."
     CHANGE_NOTIFICATION+="- PROXIED status changed from $CURRENT_CF_DNS_PROXIED to $CF_DNS_PROXIED.\n"
 fi
-
 
 # Check if any changes were detected
 if [[ "$CURRENT_CF_PUBLIC_IP" == "$PUBLIC_IP" ]] && [[ "$CURRENT_CF_DNS_TTL" == "$CF_DNS_TTL" ]] && [[ "$CURRENT_CF_DNS_PROXIED" == "$CF_DNS_PROXIED" ]]; then
