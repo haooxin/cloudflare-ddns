@@ -19,7 +19,7 @@ This script is used to update Dynamic DNS (DDNS) service based on Cloudflare! Ac
 
 ## Here are two ways to authenticate requests to the Cloudflare API:
 ### Using the Global API Key:
-If you use the Global API Key, you need to include two headers in the request: `X-Auth-Email` and `X-Auth-Key`. Ensure you provide the correct email address associated with your Cloudflare account and your Global API Key.
+If you use the Global API Key, you need to include two headers in the request `X-Auth-Key`. Ensure you provide the correct email address associated with your Cloudflare account and your Global API Key.
 
 `curl -X GET "https://api.cloudflare.com/client/v4/zones/YOUR_ZONE_ID/dns_records" -H "X-Auth-Email: YOUR_EMAIL" -H "X-Auth-Key: YOUR_GLOBAL_API_KEY" -H "Content-Type: application/json"`
 
@@ -49,7 +49,7 @@ To update a DNS record, you need the Zone ID of your domain and the Record ID of
 2. **Finding Record ID:**    
     - Use the following command, replacing YOUR_ZONE_ID, YOUR_EMAIL, and YOUR_API_KEY with your values.
     
-    `curl -X GET "https://api.cloudflare.com/client/v4/zones/YOUR_ZONE_ID/dns_records" -H "X-Auth-Email: YOUR_EMAIL" -H "Authorization: Bearer YOUR_API_KEY" -H "Content-Type: application/json"`
+    `curl -X GET "https://api.cloudflare.com/client/v4/zones/YOUR_ZONE_ID/dns_records" -H "Authorization: Bearer YOUR_API_KEY" -H "Content-Type: application/json"`
    
     - Review the response to find the ID of the record you want to update.
 
